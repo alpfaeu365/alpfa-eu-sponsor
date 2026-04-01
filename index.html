@@ -162,6 +162,25 @@ footer{background:var(--eu-navy);border-top:1px solid rgba(255,255,255,0.08);pad
 .ev-meta{font-size:11px;color:var(--text-muted);margin-bottom:0.75rem;letter-spacing:0.02em}
 .ev-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.7}
 @media(max-width:960px){.events-section{padding:3.5rem 2rem}.events-grid{grid-template-columns:1fr}}
+.sform{display:flex;flex-direction:column;gap:1.25rem}
+.sform-row{display:flex;gap:1.25rem}
+.sform-row.two{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.sform-field{display:flex;flex-direction:column;gap:6px;flex:1}
+.sform-field label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.45);font-weight:500}
+.sform-field .req{color:var(--alpfa-scarlet)}
+.sform-field input,.sform-field select,.sform-field textarea{background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;padding:11px 14px;outline:none;transition:border 0.2s;width:100%}
+.sform-field input:focus,.sform-field select:focus,.sform-field textarea:focus{border-color:var(--eu-jay)}
+.sform-field input::placeholder,.sform-field textarea::placeholder{color:rgba(255,255,255,0.2)}
+.sform-field select{appearance:none;cursor:pointer}
+.sform-field select option{background:#0d2a4a;color:#fff}
+.sform-field textarea{resize:vertical}
+.sform-error{font-size:12px;color:#f47c7c;display:none;padding:4px 0}
+.sform-btn{align-self:flex-start;background:var(--alpfa-scarlet);color:#fff;border:none;padding:13px 28px;font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s;margin-top:0.5rem}
+.sform-btn:hover{background:var(--alpfa-scarlet-light)}
+.sform-success{display:flex;align-items:flex-start;gap:14px;padding:1.5rem;border:1px solid rgba(0,163,224,0.25);background:rgba(0,163,224,0.06)}
+.sfs-title{font-size:15px;font-weight:500;color:rgba(255,255,255,0.9);margin-bottom:4px}
+.sfs-sub{font-size:13px;font-weight:300;color:rgba(255,255,255,0.5);line-height:1.6}
+@media(max-width:960px){.sform-row.two{grid-template-columns:1fr}}
 .fu{opacity:0;transform:translateY(16px);animation:fu 0.65s ease forwards}
 @keyframes fu{to{opacity:1;transform:translateY(0)}}
 .d1{animation-delay:0.05s}.d2{animation-delay:0.18s}.d3{animation-delay:0.3s}.d4{animation-delay:0.42s}
@@ -305,21 +324,62 @@ footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem}
   <div class="intake-in">
     <div class="intake-eye">Express interest</div>
     <h2>Start the conversation.</h2>
-    <p class="intake-desc">Our intake assistant will collect your firm's details. Kimberly Zorrilla or Jonathan Pedroza from the EU ALPFA Corporate Relations team will follow up within 48 hours.</p>
-    <div class="chat-box">
-      <div class="chat-msgs" id="chat-msgs"></div>
-      <div class="quick-row" id="quick-row"></div>
-      <div class="chat-inp-row">
-        <input type="text" id="chat-input" placeholder="Type your response and press Enter…" />
-        <button id="chat-send">Send</button>
+    <p class="intake-desc">Fill out the form below and Kimberly Zorrilla or Jonathan Pedroza from the EU ALPFA Corporate Relations team will follow up within 48 hours.</p>
+    <div class="sform" id="sform">
+      <div class="sform-row two">
+        <div class="sform-field">
+          <label>Company name <span class="req">*</span></label>
+          <input type="text" id="f-company" placeholder="e.g. Ally Financial" />
+        </div>
+        <div class="sform-field">
+          <label>Contact person <span class="req">*</span></label>
+          <input type="text" id="f-contact" placeholder="Full name" />
+        </div>
       </div>
+      <div class="sform-row two">
+        <div class="sform-field">
+          <label>Email address <span class="req">*</span></label>
+          <input type="email" id="f-email" placeholder="contact@company.com" />
+        </div>
+        <div class="sform-field">
+          <label>Phone number</label>
+          <input type="tel" id="f-phone" placeholder="(312) 555-0100" />
+        </div>
+      </div>
+      <div class="sform-row two">
+        <div class="sform-field">
+          <label>Sponsorship tier <span class="req">*</span></label>
+          <select id="f-tier">
+            <option value="">Select a tier…</option>
+            <option value="Platinum — $1,000">Platinum — $1,000</option>
+            <option value="Gold — $700">Gold — $700</option>
+            <option value="Cardinal — $400">Cardinal — $400</option>
+          </select>
+        </div>
+        <div class="sform-field">
+          <label>Preferred semester <span class="req">*</span></label>
+          <select id="f-semester">
+            <option value="">Select…</option>
+            <option value="Fall 2026">Fall 2026</option>
+            <option value="Spring 2027">Spring 2027</option>
+            <option value="Fall 2027">Fall 2027</option>
+          </select>
+        </div>
+      </div>
+      <div class="sform-row">
+        <div class="sform-field">
+          <label>Additional notes or questions</label>
+          <textarea id="f-notes" rows="3" placeholder="Any specific events, branding preferences, or questions for the team…"></textarea>
+        </div>
+      </div>
+      <div class="sform-error" id="sform-error"></div>
+      <button class="sform-btn" id="sform-submit" onclick="submitForm()">Submit interest →</button>
     </div>
-    <div class="sum-panel" id="sum-panel">
-      <div class="sum-title">Submission confirmed — please keep this summary for your records</div>
-      <div class="sum-grid" id="sum-grid"></div>
-      <div class="sum-notify pending" id="sum-notify">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><line x1="8" y1="5" x2="8" y2="9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="11" r="0.6" fill="currentColor"/></svg>
-        Preparing notification for EU ALPFA Corporate Relations…
+    <div class="sform-success" id="sform-success" style="display:none">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#00A3E0" stroke-width="1.2"/><polyline points="6,10.5 8.5,13 14,7.5" stroke="#00A3E0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div>
+        <div class="sfs-title">Thank you — your interest has been submitted.</div>
+        <div class="sfs-sub">Kimberly Zorrilla or Jonathan Pedroza will follow up within 48 hours at the email you provided.</div>
       </div>
     </div>
   </div>
@@ -336,65 +396,37 @@ footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem}
     </div>
   </div>
 </footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const SYS=`You are a professional sponsorship intake assistant for ALPFA Elmhurst University (EU), a chapter of the Association of Latino Professionals For America. You help corporate sponsors through a professional intake conversation on behalf of the EU ALPFA Corporate Relations team — Kimberly Zorrilla and Jonathan Pedroza.
-Collect in order: (1) company name, (2) contact person full name, (3) contact email, (4) contact phone, (5) sponsorship tier — Platinum $1,000, Gold $700, or Cardinal $400, (6) preferred semester (Spring or Fall and year), (7) any special notes.
-Tier details — Platinum ($1,000): Logo as Premium Sponsor, priority event scheduling, sponsor lunch, resume ebook, premium branding, logo on flyers. Gold ($700): Gold Sponsor logo, second-choice scheduling, sponsor lunch, featured branding, logo on flyers. Cardinal ($400): Logo on webpage, info session presentation, sponsor lunch.
-Be concise, professional, and warm. Ask 1-2 questions at a time. No markdown bullets. Let the sponsor know that Kimberly Zorrilla or Jonathan Pedroza from the Corporate Relations team will follow up within 48 hours. When all 7 fields confirmed, end with exactly:
-COMPLETE:{"company":"...","contact":"...","email":"...","phone":"...","tier":"Platinum|Gold|Cardinal","semester":"...","notes":"..."}`;
-let hist=[],busy=false;
-function addMsg(role,html,typing){
-  const w=document.getElementById('chat-msgs');
-  const d=document.createElement('div');d.className='cmsg'+(role==='user'?' user':'');
-  if(typing)d.id='typing';
-  const av=document.createElement('div');av.className='cav '+(role==='user'?'user':'bot');av.textContent=role==='user'?'You':'EU';
-  const b=document.createElement('div');b.className='cbub '+(role==='user'?'user':'bot')+(typing?' typing':'');
-  b.innerHTML=typing?'<span class="dot"></span><span class="dot"></span><span class="dot"></span>':html;
-  d.appendChild(av);d.appendChild(b);w.appendChild(d);w.scrollTop=w.scrollHeight;
-}
-function rmTyping(){const t=document.getElementById('typing');if(t)t.remove();}
-function setQuick(opts){
-  const c=document.getElementById('quick-row');c.innerHTML='';
-  opts.forEach(o=>{const b=document.createElement('button');b.className='qbtn';b.textContent=o;b.onclick=()=>{document.getElementById('chat-input').value=o;send();};c.appendChild(b);});
-}
-function showSummary(data){
-  const p=document.getElementById('sum-panel');p.style.display='block';
-  const fields=[['Company',data.company],['Contact',data.contact],['Email',data.email],['Phone',data.phone||'—'],['Tier','<span class="sum-badge">'+data.tier+'</span>'],['Semester',data.semester||'TBD'],['Notes',data.notes||'None']];
-  document.getElementById('sum-grid').innerHTML=fields.map(([l,v])=>'<div class="sum-row"><div class="sum-lbl">'+l+'</div><div class="sum-val">'+v+'</div></div>').join('');
-  p.scrollIntoView({behavior:'smooth',block:'start'});
-  setTimeout(()=>{const n=document.getElementById('sum-notify');n.className='sum-notify sent';n.innerHTML='<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><polyline points="5,8.5 7,10.5 11,6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Notification sent to Kimberly Zorrilla &amp; Jonathan Pedroza — Corporate Relations, ALPFA EU';},2000);
-}
-async function claude(m){
-  hist.push({role:'user',content:m});
-  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:hist})});
-  const d=await r.json();const raw=d.content?.[0]?.text||'Something went wrong.';hist.push({role:'assistant',content:raw});return raw;
-}
-function parse(raw){const tag='COMPLETE:';const i=raw.indexOf(tag);if(i!==-1){try{return{text:raw.slice(0,i).trim(),done:true,data:JSON.parse(raw.slice(i+tag.length).trim())};}catch(e){}}return{text:raw,done:false};}
-async function send(){
-  if(busy)return;
-  const inp=document.getElementById('chat-input');const m=inp.value.trim();if(!m)return;
-  inp.value='';document.getElementById('quick-row').innerHTML='';addMsg('user',m);
-  busy=true;document.getElementById('chat-send').disabled=true;addMsg('bot','',true);
-  try{
-    const raw=await claude(m);rmTyping();
-    const{text,done,data}=parse(raw);
-    if(text)addMsg('bot',text.replace(/\n/g,'<br>'));
-    if(done){showSummary(data);}
-    else if(/tier|package|platinum|gold|cardinal|level/i.test(text)){setQuick(['Platinum — $1,000','Gold — $700','Cardinal — $400']);}
-  }catch(e){rmTyping();addMsg('bot',"We're having trouble connecting. Please try again in a moment.");}
-  busy=false;document.getElementById('chat-send').disabled=false;inp.focus();
-}
+<script>
 function selectTier(tier){
   document.getElementById('intake').scrollIntoView({behavior:'smooth'});
-  setTimeout(()=>{if(hist.length>0){document.getElementById('chat-input').value="I'm interested in the "+tier+" package";send();}},700);
+  setTimeout(()=>{
+    const sel=document.getElementById('f-tier');
+    if(sel){
+      for(let i=0;i<sel.options.length;i++){
+        if(sel.options[i].value.startsWith(tier)){sel.selectedIndex=i;break;}
+      }
+    }
+  },600);
 }
-document.getElementById('chat-send').onclick=send;
-document.getElementById('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter')send();});
-(async()=>{
-  busy=true;document.getElementById('chat-send').disabled=true;addMsg('bot','',true);
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:[{role:'user',content:'Hello, I am interested in sponsoring ALPFA EU.'}]})});
-    const d=await r.json();const raw=d.content?.[0]?.text||'Thank you for your interest. Could you start by sharing your company name and contact person?';
-    hist.push({role:'user',content:'Hello, I am interested in sponsoring ALPFA EU.'});hist.push({role:'assistant',content:raw});
-    rmTyping();addMsg('bot',parse(raw).text.replace(/\n/g,'<br>'));
-  }catch(e){rmTyping();addMsg('bot','Thank
+function submitForm(){
+  const company=document.getElementById('f-company').value.trim();
+  const contact=document.getElementById('f-contact').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const tier=document.getElementById('f-tier').value;
+  const semester=document.getElementById('f-semester').value;
+  const phone=document.getElementById('f-phone').value.trim();
+  const notes=document.getElementById('f-notes').value.trim();
+  const err=document.getElementById('sform-error');
+  if(!company||!contact||!email||!tier||!semester){
+    err.textContent='Please fill in all required fields.';err.style.display='block';return;
+  }
+  err.style.display='none';
+  const body=`New Sponsorship Interest — ALPFA EU\n\nCompany: ${company}\nContact: ${contact}\nEmail: ${email}\nPhone: ${phone||'Not provided'}\nTier: ${tier}\nSemester: ${semester}\nNotes: ${notes||'None'}\n\n---\nSubmitted via alpfaeu365.github.io/alpfa-eu-sponsor`;
+  const mailto=`mailto:kimberlyzorrilla5@gmail.com,Jonathanpedroza586@gmail.com?cc=ALPFA@365.elmhurst.edu&subject=Sponsorship Interest — ${encodeURIComponent(company)}&body=${encodeURIComponent(body)}`;
+  window.location.href=mailto;
+  setTimeout(()=>{
+    document.getElementById('sform').style.display='none';
+    document.getElementById('sform-success').style.display='flex';
+  },800);
+}
+</script>
